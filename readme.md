@@ -165,6 +165,12 @@ Currently, the application uses an in-memory H2 database. You can access the H2 
 JDBC URL: jdbc:h2:mem:BoatRentalDB
 User Name: sa
 
+Currently on startup, the application will create the following tables:
+Pet (id, name, type, breed, weight, vaccinated, training_level)
+
+And some sample data will be inserted into the Pet table for testing.
+
+
 ## Running the tests
 
 You can run the tests with the above GraphQL queries using a GraphQL client.
