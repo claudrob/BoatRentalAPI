@@ -1,0 +1,34 @@
+type Pet{
+    id: ID!
+    name: String!
+    type: String!
+    breed: String!
+    weight: Float!
+    vaccinated: String
+    trainingLevel: Int!
+}
+
+input PetInput{
+    name: String!
+    type: String!
+    breed: String!
+    weight: Float!
+    vaccinated: String
+    trainingLevel: Int!
+}
+
+type Query{
+    pets: [Pet]!
+    petById(id: ID): Pet
+    petByName(name: String): Pet
+    petsByMaxWeight(maxWeight: Float): [Pet]
+    petsByVaccinationStatus(vaccinated: Boolean): [Pet]
+    petsByExcludedBreed(excludedBreed: String): [Pet]
+    eligiblePets(weight: Float, vaccinated: Boolean, breed: String, trainingLevel: Int): [Pet]
+}
+
+type Mutation{
+    addPet(input: PetInput): Pet
+    updatePet(id: ID, pet: PetInput): Pet
+    deletePet(id: ID!): Boolean
+}
