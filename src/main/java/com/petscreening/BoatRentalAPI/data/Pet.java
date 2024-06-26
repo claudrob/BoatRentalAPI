@@ -1,6 +1,8 @@
 package com.petscreening.BoatRentalAPI.data;
 
 import jakarta.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "PET")
@@ -21,7 +23,10 @@ public class Pet {
     private double weight;
     @Column(name = "VACCINATED")
     private Boolean vaccinated;
+
     @Column(name = "TRAINING_LEVEL")
+    @Min(1)
+    @Max(10)
     private int trainingLevel;
 
     public long getId() {

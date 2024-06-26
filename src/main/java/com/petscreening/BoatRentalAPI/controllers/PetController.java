@@ -1,16 +1,26 @@
 package com.petscreening.BoatRentalAPI.controllers;
 
 import com.petscreening.BoatRentalAPI.data.Pet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import com.petscreening.BoatRentalAPI.repositories.PetRepository;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validator;
+import java.util.Set;
+
+
 @Controller
 public class PetController {
 
     private final PetRepository petRepository;
+
+    @Autowired
+    private Validator validator;
 
     public PetController(PetRepository petRepository) {
         this.petRepository = petRepository;
@@ -53,7 +63,15 @@ public class PetController {
 
     @MutationMapping
     public Pet addPet(@Argument(name="input") PetInput petInput){
-        return this.petRepository.save(petInput.getPetEntity());
+        Pet pet = petInput.getPetEntity();
+
+        // Validate the Pet object
+        Set<ConstraintViolation<Pet>> violations = validator.validate(pet);
+        if (!violations.isEmpty()) {
+            // Handle validation errors
+            throw new ConstraintViolationException(violations);
+        }
+        return this.petRepository.save(pet);
     }
 
     @MutationMapping
@@ -71,6 +89,13 @@ public class PetController {
     Pet pet = this.petRepository.findById(id).orElseThrow();
     Pet updatedPet = petInput.getPetEntity();
     updatedPet.setId(pet.getId());
+
+    // Validate the Pet object
+        Set<ConstraintViolation<Pet>> violations = validator.validate(updatedPet);
+        if (!violations.isEmpty()) {
+            // Handle validation errors
+            throw new ConstraintViolationException(violations);
+        }
     return this.petRepository.save(updatedPet);
 }
 
