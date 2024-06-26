@@ -67,7 +67,7 @@ query {
     type
     breed
     weight
-    vaccination
+    vaccinated
     trainingLevel
   }
 }
@@ -111,7 +111,7 @@ query {
     type
     breed
     weight
-    vaccination
+    vaccinated
     trainingLevel
   }
 }
@@ -153,7 +153,7 @@ mutation {
 
 mutation {
   updatePet(id: 1, pet: {name: "New Name", 
-    type: "New Type", breed: "New Breed", weight: 10.0, vaccination: true, trainingLevel: 5}) {
+    type: "New Type", breed: "New Breed", weight: 10.0, vaccinated: true, trainingLevel: 5}) {
     name
     type
   }

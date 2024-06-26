@@ -4,7 +4,7 @@ type Pet{
     type: String!
     breed: String!
     weight: Float!
-    vaccinated: String
+    vaccinated: Boolean
     trainingLevel: Int!
 }
 
@@ -13,7 +13,7 @@ input PetInput{
     type: String!
     breed: String!
     weight: Float!
-    vaccinated: String
+    vaccinated: Boolean!
     trainingLevel: Int!
 }
 
